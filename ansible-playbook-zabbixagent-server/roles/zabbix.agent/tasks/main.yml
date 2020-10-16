@@ -1,0 +1,25 @@
+##### check zabbix home dir and shell
+  - name: Make sure a service is stopped
+    systemd: state=stopped name=zabbix-agent
+    become: yes
+    
+  - name: change zabbix_agentd.conf ServerActive
+    lineinfile:
+      path: /etc/zabbix/zabbix_agentd.conf
+      state: present
+      regexp: 'ServerActive='
+      line: 'ServerActive=172.16.101.147,172.16.101.174'
+    become: yes
+
+  - name: change zabbix_agentd.conf Server
+    lineinfile:
+      path: /etc/zabbix/zabbix_agentd.conf
+      state: present
+      regexp: 'Server='
+      line: 'Server=172.16.101.147,172.16.101.174'
+    become: yes
+
+### Starting zabbix-agent
+  - name: Make sure a service is started
+    systemd: state=started name=zabbix-agent
+    become: yes

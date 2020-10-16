@@ -1,0 +1,6 @@
+#- hosts: "{{ hosts }}"
+- hosts: aws-restante
+  become: yes
+  remote_user: ubuntu
+  roles:
+    - zabbix.agent
